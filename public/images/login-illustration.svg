@@ -1,0 +1,30 @@
+<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background box -->
+    <path d="M356.4,234.2H43.6c-13.5,0-24.5-11-24.5-24.5V90.3c0-13.5,11-24.5,24.5-24.5h312.8c13.5,0,24.5,11,24.5,24.5v119.4C380.9,223.2,369.9,234.2,356.4,234.2z" fill="#E0F2F1"/>
+
+    <!-- Outline -->
+    <path d="M380.9,90.3v119.4c0,13.5-11,24.5-24.5,24.5H43.6c-13.5,0-24.5-11-24.5-24.5V90.3c0-13.5,11-24.5,24.5-24.5h312.8C369.9,65.8,380.9,76.8,380.9,90.3z"
+          fill="none" stroke="#0f766e" stroke-width="2" stroke-miterlimit="10"/>
+
+    <!-- Envelope line -->
+    <path d="M19.1,90.3l180.9,83.9l180.9-83.9" fill="none" stroke="#0f766e" stroke-width="2" stroke-miterlimit="10"/>
+
+    <!-- Left circle -->
+    <circle cx="100" cy="150" r="25" fill="#14b8a6"/>
+
+    <!-- Middle circle -->
+    <circle cx="200" cy="100" r="30" fill="#5eead4"/>
+
+    <!-- Right circle -->
+    <circle cx="300" cy="150" r="25" fill="#14b8a6"/>
+
+    <!-- Left curve -->
+    <path d="M100,175c0,13.8-22.4,25-50,25" fill="none" stroke="#14b8a6" stroke-width="2" stroke-miterlimit="10"/>
+
+    <!-- Right curve -->
+    <path d="M300,175c0,13.8,22.4,25,50,25" fill="none" stroke="#14b8a6" stroke-width="2" stroke-miterlimit="10"/>
+
+    <!-- Middle curved links -->
+    <path d="M200,130c0,24.9-44.8,45-100,45" fill="none" stroke="#5eead4" stroke-width="2" stroke-miterlimit="10"/>
+    <path d="M200,130c0,24.9,44.8,45,100,45" fill="none" stroke="#5eead4" stroke-width="2" stroke-miterlimit="10"/>
+</svg>

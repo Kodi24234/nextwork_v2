@@ -1,0 +1,296 @@
+<x-layouts.nextwork>
+    <x-slot:title>
+        Edit Profile
+    </x-slot>
+
+    <div x-data="{ tab: 'personal' }" class="max-w-5xl mx-auto">
+        <h2 class="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-6">Edit Your Profile</h2>
+
+        <!-- Tab Navigation -->
+        <div class="border-b border-gray-200 dark:border-gray-700 mb-6">
+            <nav class="flex space-x-2 md:space-x-6 -mb-px">
+                <button @click="tab = 'personal'" :class="{ 'text-teal-600 dark:text-teal-400 border-teal-500': tab === 'personal', 'text-gray-500 border-transparent hover:text-gray-700 hover:border-gray-300': tab !== 'personal' }" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors">
+                    Personal Info
+                </button>
+                <button @click="tab = 'experience'" :class="{ 'text-teal-600 dark:text-teal-400 border-teal-500': tab === 'experience', 'text-gray-500 border-transparent hover:text-gray-700 hover:border-gray-300': tab !== 'experience' }" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors">
+                    Work Experience
+                </button>
+                <button @click="tab = 'education'" :class="{ 'text-teal-600 dark:text-teal-400 border-teal-500': tab === 'education', 'text-gray-500 border-transparent hover:text-gray-700 hover:border-gray-300': tab !== 'education' }" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors">
+                    Education
+                </button>
+                <button @click="tab = 'skills'" :class="{ 'text-teal-600 dark:text-teal-400 border-teal-500': tab === 'skills', 'text-gray-500 border-transparent hover:text-gray-700 hover:border-gray-300': tab !== 'skills' }" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors">
+                    Skills
+                </button>
+            </nav>
+        </div>
+
+        <!-- Tab 1: Personal Info -->
+        <div x-show="tab === 'personal'" class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden p-6 md:p-8">
+            <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('PATCH')
+
+                <!-- Profile Picture Section -->
+                <div class="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-6 mb-8">
+                    <img class="h-24 w-24 rounded-full object-cover" src="{{ Auth::user()->profile->profile_picture_url ?? 'https://ui-avatars.com/api/?name='.urlencode(Auth::user()->name).'&color=7F9CF5&background=EBF4FF' }}" alt="Current profile photo" />
+                    <div class="flex-grow">
+                        <label for="profile_picture" class="cursor-pointer bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 font-semibold px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-600">
+                            Upload New Picture
+                        </label>
+                        <input type="file" name="profile_picture" id="profile_picture" class="hidden">
+                        <p class="text-xs text-gray-500 mt-2">PNG, JPG, GIF up to 2MB.</p>
+                    </div>
+                </div>
+
+                <!-- Personal Info Form Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <x-input-label for="name" :value="__('Full Name')" />
+                        <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus />
+                        <x-input-error class="mt-2" :messages="$errors->get('name')" />
+                    </div>
+
+                    <div>
+                        <x-input-label for="headline" :value="__('Headline')" />
+                        <x-text-input id="headline" name="headline" type="text" class="mt-1 block w-full" :value="old('headline', $user->profile->headline ?? '')" placeholder="e.g. Senior Developer at Nextwork" />
+                        <p class="text-xs text-gray-500 mt-1">Your professional title or mission statement.</p>
+                        <x-input-error class="mt-2" :messages="$errors->get('headline')" />
+                    </div>
+
+                    <div class="md:col-span-2">
+                        <x-input-label for="location" :value="__('Location')" />
+                        <x-text-input id="location" name="location" type="text" class="mt-1 block w-full" :value="old('location', $user->profile->location ?? '')" placeholder="e.g. New York, USA" />
+                        <x-input-error class="mt-2" :messages="$errors->get('location')" />
+                    </div>
+
+                    <div class="md:col-span-2">
+                        <x-input-label for="summary" :value="__('About Me Summary')" />
+                        <textarea id="summary" name="summary" rows="5" class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">{{ old('summary', $user->profile->summary ?? '') }}</textarea>
+                        <x-input-error class="mt-2" :messages="$errors->get('summary')" />
+                    </div>
+
+                    <!-- Social Links -->
+                    <h3 class="md:col-span-2 text-lg font-medium text-gray-900 dark:text-gray-100 mt-4">Social Links</h3>
+
+                    <div>
+                        <x-input-label for="website_url" :value="__('Website / Portfolio')" />
+                        <x-text-input id="website_url" name="website_url" type="url" class="mt-1 block w-full" :value="old('website_url', $user->profile->website_url ?? '')" placeholder="https://..." />
+                        <x-input-error class="mt-2" :messages="$errors->get('website_url')" />
+                    </div>
+
+                    <div>
+                        <x-input-label for="linkedin_url" :value="__('LinkedIn URL')" />
+                        <x-text-input id="linkedin_url" name="linkedin_url" type="url" class="mt-1 block w-full" :value="old('linkedin_url', $user->profile->linkedin_url ?? '')" placeholder="https://www.linkedin.com/in/..." />
+                        <x-input-error class="mt-2" :messages="$errors->get('linkedin_url')" />
+                    </div>
+                </div>
+
+                <div class="flex justify-end mt-8">
+                    <button type="submit" class="bg-teal-600 text-white font-semibold px-6 py-2 rounded-md hover:bg-teal-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500">
+                        Save Changes
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Tab 2: Work Experience (UI Skeleton) -->
+        <div x-show="tab === 'experience'" class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden p-6 md:p-8">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold text-gray-800 dark:text-gray-100">Work Experience</h3>
+                <button class="bg-teal-600 text-white font-semibold px-4 py-2 rounded-md hover:bg-teal-700 transition-colors text-sm">
+                    <i class="ti ti-plus mr-1"></i> Add Experience
+                </button>
+            </div>
+            <!-- Experience Item Example -->
+            <div class="border-t border-gray-200 dark:border-gray-700 py-4 flex justify-between items-start">
+                <div>
+                    <h4 class="font-bold text-gray-900 dark:text-gray-200">Senior Software Engineer</h4>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Nextwork Inc. · Full-time</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-500">Jan 2022 - Present · 2 yrs</p>
+                </div>
+                <div class="flex space-x-2">
+                    <button class="text-gray-400 hover:text-teal-600"><i class="ti ti-pencil"></i></button>
+                    <button class="text-gray-400 hover:text-red-600"><i class="ti ti-trash"></i></button>
+                </div>
+            </div>
+             <div class="border-t border-gray-200 dark:border-gray-700 py-4 text-center text-gray-500">
+                You haven't added any work experience yet.
+            </div>
+        </div>
+
+        <!-- Tab 3: Education (UI Skeleton) -->
+        <div x-show="tab === 'education'" class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden p-6 md:p-8">
+             <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold text-gray-800 dark:text-gray-100">Education</h3>
+                <button class="bg-teal-600 text-white font-semibold px-4 py-2 rounded-md hover:bg-teal-700 transition-colors text-sm">
+                    <i class="ti ti-plus mr-1"></i> Add Education
+                </button>
+            </div>
+            <div class="border-t border-gray-200 dark:border-gray-700 py-4 text-center text-gray-500">
+                Showcase your academic background.
+            </div>
+        </div>
+
+        <!-- Tab 4: Skills (UI Skeleton) -->
+        <div x-show="tab === 'skills'" class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden p-6 md:p-8">
+             <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold text-gray-800 dark:text-gray-100">Skills</h3>
+            </div>
+            <p class="text-gray-500 mb-4">Add skills to show your expertise. Recruiters search for these!</p>
+            <div class="flex flex-wrap gap-2">
+                <span class="bg-teal-100 text-teal-800 text-sm font-medium px-3 py-1 rounded-full">Laravel</span>
+                <span class="bg-teal-100 text-teal-800 text-sm font-medium px-3 py-1 rounded-full">PHP</span>
+                <span class="bg-teal-100 text-teal-800 text-sm font-medium px-3 py-1 rounded-full">Vue.js</span>
+                <span class="bg-teal-100 text-teal-800 text-sm font-medium px-3 py-1 rounded-full">Project Management</span>
+            </div>
+        </div>
+    </div>
+</x-layouts.nextwork>
+
+
+
+ // --- Step 1: Handle User Table Data (from original code) ---
+        // $user->fill($request->validated());
+        // if ($user->isDirty('email')) {
+        //     $user->email_verified_at = null;
+        // }
+        // $user->save();
+        // // --- Step 2: Prepare Data for the Profile Table ---
+        // $profileData = $request->only(['headline', 'location', 'summary', 'website_url', 'linkedin_url']);
+        // // --- Step 3: Handle Profile Picture Upload ---
+        // if ($request->hasFile('profile_picture')) {
+        //     // First, delete the old picture to save space
+        //     if ($user->profile && $user->profile->profile_picture_path) {
+        //         Storage::disk('public')->delete($user->profile->profile_picture_path);
+        //     }
+        //     // Store the new picture and get its path
+        //     $path = $request->file('profile_picture')->store('profile-pictures', 'public');
+        //     // Add the new path to our data array
+        //     $profileData['profile_picture_path'] = $path;
+        // }
+        // // --- Step 4: Save everything to the Profile Table ---
+
+        // $user->profile()->updateOrCreate(
+        //     ['user_id' => $user->id], // The key to find the profile by
+        //     $profileData              // The data to update or create with
+        // );
+        dd($request->all());
+        // return Redirect::route('profile.show')->with('status', 'profile-updated');
+
+
+
+
+Skill form in show skills view page
+<!-- Form for adding a new skill -->
+            <form action="{{ route('skills.store') }}" method="POST" class="mt-6 flex items-center gap-4">
+                @csrf
+                <div class="flex-grow">
+                    {{-- We use sr-only to hide the label visually but keep it for screen readers --}}
+                    <x-input-label for="skill_name" value="Add a new skill" class="sr-only" />
+                    <x-text-input id="skill_name" name="name" type="text" class="block w-full"
+                        placeholder="e.g., Laravel, Project Management" required />
+                    <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                </div>
+                <button type="submit"
+                    class="bg-teal-600 text-white font-semibold px-6 py-2 rounded-md hover:bg-teal-700 transition-colors text-sm shrink-0">
+                    Add Skill
+                </button>
+            </form>
+
+
+
+
+
+<?php
+
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Auth\CompanyRegistrationController;
+use App\Http\Controllers\Auth\RedirectController;
+use App\Http\Controllers\Company\DashboardController as CompanyDashboardController;
+use App\Http\Controllers\Professional\ConnectionController;
+use App\Http\Controllers\Professional\EducationController as EducationController;
+use App\Http\Controllers\Professional\FeedController as UserFeedController;
+use App\Http\Controllers\Professional\PostCommentController;
+use App\Http\Controllers\Professional\PostController;
+use App\Http\Controllers\Professional\PostLikeController;
+use App\Http\Controllers\Professional\ProfileController as ProfileController;
+use App\Http\Controllers\Professional\ProfileSkillController as ProfileSkillController;
+use App\Http\Controllers\Professional\PublicProfileController;
+use App\Http\Controllers\Professional\WorkExperienceController as WorkExperienceController;
+use Illuminate\Support\Facades\Route;
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/feed', [UserFeedController::class, 'index'])->name('feed.index');
+
+    // Profile routes
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // Work Experience
+    Route::post('/profile/experience', [WorkExperienceController::class, 'store'])->name('profile.experience.store');
+    Route::patch('/profile/experience/{experience}', [WorkExperienceController::class, 'update'])->name('profile.experience.update');
+    Route::delete('/profile/experience/{experience}', [WorkExperienceController::class, 'destroy'])->name('profile.experience.destroy');
+
+    // Education
+    Route::post('/profile/education', [EducationController::class, 'store'])->name('profile.education.store');
+    Route::patch('/profile/education/{education}', [EducationController::class, 'update'])->name('profile.education.update');
+    Route::delete('/profile/education/{education}', [EducationController::class, 'destroy'])->name('profile.education.destroy');
+
+    // Skills
+    Route::post('/profile/skills', [ProfileSkillController::class, 'store'])->name('skills.store');
+    Route::delete('/profile/skills/{skill}', [ProfileSkillController::class, 'destroy'])->name('skills.destroy');
+
+    //posts
+    Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
+    Route::patch('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
+    Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
+    Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
+    Route::post('/posts/{post}/like', [PostLikeController::class, 'store'])->name('posts.like');
+    Route::delete('/posts/{post}/like', [PostLikeController::class, 'destroy'])->name('posts.unlike');
+    Route::post('/posts/{post}/comments', [PostCommentController::class, 'store'])->name('comments.store');
+    Route::delete('/comments/{comment}', [PostCommentController::class, 'destroy'])->name('comments.destroy');
+
+    //Public Profile
+    Route::get('/professionals', [PublicProfileController::class, 'index'])->name('professionals.index');
+    Route::get('/professionals/{user}', [PublicProfileController::class, 'show'])->name('professionals.show');
+    Route::post('/connections/{user}', [ConnectionController::class, 'store'])->name('connections.store');
+    Route::patch('/connections/{connection}', [ConnectionController::class, 'update'])->name('connections.update');
+    Route::delete('/connections/{connection}', [ConnectionController::class, 'destroy'])->name('connections.destroy');
+
+});
+Route::get('/redirect-dashboard', [RedirectController::class, 'handle'])
+    ->middleware('auth')
+    ->name('redirect.dashboard');
+
+//group routes for admins
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    // Define admin routes here
+    Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])
+        ->name('admin.dashboard');
+});
+Route::get('register/company', [CompanyRegistrationController::class, 'create'])
+    ->middleware('guest')
+    ->name('company.register.create');
+
+Route::post('register/company', [CompanyRegistrationController::class, 'store'])
+    ->middleware('guest')
+    ->name('company.register.store');
+
+//group routes for company
+Route::middleware(['auth', 'role:company'])->group(function () {
+    // Define company routes here
+    Route::get('/company/dashboard', [CompanyDashboardController::class, 'index',
+    ])->name('company.dashboard');
+    // You can add more company-specific routes here
+});
+require __DIR__ . '/auth.php';
