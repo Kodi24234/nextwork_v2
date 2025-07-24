@@ -16,11 +16,17 @@
 
                 <!-- Success Message -->
                 @if (session('status') === 'company-profile-updated')
-                    <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6" role="alert">
-                        <p class="font-bold">Success</p>
-                        <p>Your company profile has been updated.</p>
+                    <div x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 2000)"
+                        class="flex items-center justify-between gap-2 bg-teal-50 text-teal-700 border border-teal-200 px-4 py-2 rounded-lg text-sm mb-6"
+                        role="alert">
+                        <div class="flex items-center gap-2">
+                            <i class="ti ti-circle-check text-lg"></i>
+                            <span>Profile Updated successfully!</span>
+                        </div>
+
                     </div>
                 @endif
+
 
                 <!-- Company Logo Section -->
                 <div class="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-6 mb-8 pb-8 border-b">

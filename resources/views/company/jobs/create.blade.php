@@ -4,6 +4,7 @@
 @section('content')
     <h2 class="text-2xl font-bold text-gray-800 mb-6">Create a New Job Posting</h2>
 
+
     <div class="bg-white rounded-xl shadow-md p-6">
         <form action="{{ route('company.jobs.store') }}" method="POST">
             @csrf

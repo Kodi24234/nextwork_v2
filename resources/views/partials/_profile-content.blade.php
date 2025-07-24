@@ -1,4 +1,11 @@
-<div class="max-w-5xl mx-auto">
+<div class="max-w-5xl mx-auto mb-20">
+    {{-- <div class="mb-6">
+        <a href="{{ route('company.jobs.applicants', $job) }}"
+            class="inline-flex items-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg transition-colors">
+            <i class="ti ti-arrow-left text-lg"></i>
+            <span>Back</span>
+        </a>
+    </div> --}}
     <!-- Profile Header Card -->
     <div class="bg-white rounded-xl shadow-md p-6 md:p-8 mb-8">
         <div class="flex flex-col md:flex-row items-center gap-6">

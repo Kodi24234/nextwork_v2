@@ -44,7 +44,7 @@ class EducationController extends Controller
 
         $request->user()->education()->create($validated);
 
-        return Redirect::route('profile.edit')->with('status', 'education-added');
+        return back()->with('status', 'education-added');
 
     }
 

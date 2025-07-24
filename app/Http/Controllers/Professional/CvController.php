@@ -14,6 +14,7 @@ class CvController extends Controller
     {
         return view('cv.index');
     }
+
     public function update(Request $request)
     {
         $request->validate([
@@ -28,9 +29,12 @@ class CvController extends Controller
 
         return redirect()->route('cv.index')->with('status', 'updated');
     }
+
     public function preview()
     {
         $user = Auth::user();
+        // Load relationships to match PDF template data
+        $user->load(['profile', 'workExperiences', 'education', 'skills']);
 
         return view('cv.preview', compact('user'));
     }
@@ -38,14 +42,30 @@ class CvController extends Controller
     public function download()
     {
         $user = Auth::user();
+        // Load all relationships needed for the CV
+        $user->load(['profile', 'workExperiences', 'education', 'skills']);
 
-        $pdf = Pdf::loadView('cv.pdf-template', compact('user'));
+        $pdf = Pdf::loadView('cv.pdf-template', compact('user'))
+            ->setPaper('A4', 'portrait')
+            ->setOptions([
+                'isHtml5ParserEnabled'  => true,
+                'isRemoteEnabled'       => false,
+                'defaultFont'           => 'DejaVu Sans',
+                'dpi'                   => 96,
+                'fontHeightRatio'       => 1.0, // Reduces line height spacing
+                'isPhpEnabled'          => true,
+                'debugKeepTemp'         => false,
+                'debugCss'              => false,
+                'debugLayout'           => false,
+                'debugLayoutLines'      => false,
+                'debugLayoutBlocks'     => false,
+                'debugLayoutInline'     => false,
+                'debugLayoutPaddingBox' => false,
+            ]);
 
         $fileName = 'CV-' . Str::slug($user->name) . '.pdf';
 
-// Download the PDF
+        // Download the PDF
         return $pdf->download($fileName);
-
     }
-
 }

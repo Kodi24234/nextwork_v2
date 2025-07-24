@@ -14,9 +14,9 @@
         <div x-data="{ show: true }" x-show="show" x-transition
             class="flex items-start justify-between bg-green-50 border border-green-400 text-green-800 text-sm px-4 py-3 rounded-lg mb-6"
             role="alert">
-            <div class="flex items-center">
-                <i class="ti ti-check mr-2 text-lg text-green-600"></i>
-                <span>{{ session('status') }}</span>
+            <div class="flex items-center gap-2">
+                <i class="ti ti-circle-check text-lg"></i>
+                <span>Job created successfully!</span>
             </div>
             <button @click="show = false" class="text-lg leading-none text-green-600 hover:text-green-800 ml-4">
                 &times;

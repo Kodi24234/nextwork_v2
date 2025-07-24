@@ -12,17 +12,19 @@ use App\Http\Controllers\Company\DashboardController as CompanyDashboardControll
 use App\Http\Controllers\Company\JobController as CompanyJobController;
 use App\Http\Controllers\Company\ProfileController as CompanyProfileController;
 use App\Http\Controllers\JobListingController;
+use App\Http\Controllers\Professional\ChatController;
 use App\Http\Controllers\Professional\ConnectionController;
 use App\Http\Controllers\Professional\CvController;
 use App\Http\Controllers\Professional\DashboardController as ProfessionalDashboardController;
-use App\Http\Controllers\Professional\EducationController;
 
 // Company Controllers
+use App\Http\Controllers\Professional\EducationController;
 use App\Http\Controllers\Professional\FeedController;
 use App\Http\Controllers\Professional\JobApplicationController;
-use App\Http\Controllers\Professional\PostCommentController;
 
 // Admin Controllers
+use App\Http\Controllers\Professional\MessageController;
+use App\Http\Controllers\Professional\PostCommentController;
 use App\Http\Controllers\Professional\PostController;
 use App\Http\Controllers\Professional\PostLikeController;
 use App\Http\Controllers\Professional\ProfileController;
@@ -37,7 +39,13 @@ use Illuminate\Support\Facades\Route;
 //
 
 Route::get('/', function () {
-    return Auth::check() ? redirect()->route('redirect.dashboard') : view('welcome');
+    return Auth::check()
+    ? redirect()->route('redirect.dashboard')
+    : view('welcome', [
+        'userCount'       => \App\Models\User::role('professional')->count(),
+        'jobCount'        => \App\Models\Job::where('status', 'open')->count(),
+        'connectionCount' => \App\Models\Connection::where('status', 'accepted')->count(),
+    ]);
 })->name('welcome');
 
 Route::middleware('auth')->group(function () {
@@ -102,9 +110,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/cv/download', [CvController::class, 'download'])->name('cv.download');
 
     //Message
-    Route::get('/chat', function () {
-        return view('chat.index');
-    })->name('chat.index');
+    Route::get('/chat', [ChatController::class, 'index'])->name('chat.index');
+    Route::get('/chats/{chat}/messages', [MessageController::class, 'index']);
+    Route::post('/chats/{chat}/messages', [MessageController::class, 'store']);
+    // New route for sending messages to users (creates chat if needed)
+    // New route for sending messages to users (creates chat if needed)
+    Route::post('/messages/send-to-user', [MessageController::class, 'sendToUser'])->name('messages.sendToUser');
+
 });
 
 //

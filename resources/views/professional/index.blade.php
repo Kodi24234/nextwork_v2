@@ -5,7 +5,7 @@
 @section('content')
 
 
-    <div class="max-w-7xl mx-auto">
+    <div class="max-w-7xl mx-auto mb-20">
         <h2 class="text-3xl font-bold text-gray-800 mb-6">Connect with Professionals</h2>
 
         {{-- Grid for displaying user cards --}}
@@ -30,25 +30,23 @@
                         </p>
                     </a>
 
-                    {{-- "View Profile" button --}}
-                    <!-- In resources/views/professional/index.blade.php -->
 
-                    {{-- This is the div that contains the action button --}}
+
                     <div class="mt-4 space-y-2">
                         @php
-                            // Check if a connection exists for this professional in our collection
+                            // Check if a connection exists for this professional in database
                             $connection = $connections->get($professional->id);
                             $status = $connection->status ?? null;
                             $isRequester = $connection && $connection->requester_id == auth()->id();
                         @endphp
 
-                        {{-- The main "View Profile" button --}}
+
                         <a href="{{ route('professionals.show', $professional) }}"
-                            class="w-full block bg-teal-50 text-teal-700 font-semibold px-4 py-2 rounded-lg hover:bg-teal-100 transition-colors text-center">
+                            class="w-full block bg-orange-50 text-orange-700 font-semibold px-4 py-2 rounded-lg hover:bg-orange-100 transition-colors text-center">
                             View Profile
                         </a>
 
-                        {{-- The dynamic "Connect" button --}}
+
                         @if ($status === 'accepted')
                             <button
                                 class="w-full bg-gray-100 text-gray-600 font-semibold px-4 py-2 rounded-lg text-sm flex items-center justify-center gap-2"
@@ -73,8 +71,9 @@
                         @else
                             <form action="{{ route('connections.store', $professional) }}" method="POST" class="w-full">
                                 @csrf
+                                <input type="hidden" name="user_id" value="{{ $professional->id }}">
                                 <button type="submit"
-                                    class="w-full bg-teal-600 text-white font-semibold px-4 py-2 rounded-lg text-sm hover:bg-teal-700">
+                                    class="w-full bg-orange-600 text-white font-semibold px-4 py-2 rounded-lg text-sm hover:bg-orange-700">
                                     Connect
                                 </button>
                             </form>
@@ -89,7 +88,7 @@
         </div>
 
         {{-- Pagination Links --}}
-        <div class="mt-8">
+        <div class="mt-8 mb-20">
             {{ $professionals->links() }}
         </div>
     </div>

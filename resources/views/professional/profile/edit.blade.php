@@ -155,7 +155,7 @@
                 x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
                 x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100"
                 x-transition:leave-end="opacity-0"
-                class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 px-4"
+                class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 px-2"
                 style="display: none;" x-cloak>
                 <div @click.away="isAddModalOpen = false"
                     class="bg-white rounded-xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6 transform transition-all">

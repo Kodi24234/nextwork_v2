@@ -3,7 +3,7 @@
 @section('title', 'Edit Profile')
 
 @section('content')
-    <div x-data="{ tab: 'personal' }" class="max-w-5xl mx-auto bg-white rounded-xl shadow-md p-6">
+    <div x-data="{ tab: 'personal' }" class="max-w-5xl mx-auto bg-white rounded-xl shadow-md p-6 mb-20">
         <div class="flex justify-between items-center mb-6">
             <h2 class="text-2xl font-bold text-gray-800">Your Profile</h2>
             <a href="{{ route('profile.edit') }}"
@@ -31,7 +31,7 @@
         </div>
 
         <!-- Tab 1: Personal Info -->
-        <div x-show="tab === 'personal'" class="bg-white rounded-xl shadow-md overflow-hidden p-6 md:p-8">
+        <div x-show="tab === 'personal'" class="bg-white rounded-xl shadow-md overflow-auto p-6 md:p-8">
             <div class="">
                 <div class="flex justify-between items-center mb-6">
                     {{--     --}}

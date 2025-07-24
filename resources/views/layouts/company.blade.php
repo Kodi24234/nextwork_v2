@@ -43,28 +43,37 @@
         </aside>
 
         <!-- Page Content -->
-        <div class="flex-1 flex flex-col">
+        <div class="flex flex-col flex-1 min-h-screen">
             <!-- Header -->
-            <header class="flex items-center justify-between p-4 bg-white border-b shadow-sm">
-                <button @click="sidebarOpen = !sidebarOpen" class="lg:hidden text-gray-500 hover:text-teal-600">
-                    <i class="ti ti-menu-2 text-xl"></i>
+            <header class="flex items-center justify-between px-6 py-4 bg-white border-b shadow-sm">
+                <!-- Sidebar Toggle (Mobile Only) -->
+                <button @click="sidebarOpen = !sidebarOpen"
+                    class="lg:hidden text-gray-500 hover:text-teal-600 focus:outline-none" aria-label="Toggle Sidebar">
+                    <i class="ti ti-menu-2 text-2xl"></i>
                 </button>
-                <div class="flex items-center gap-4">
-                    <span
-                        class="font-semibold text-gray-800">{{ Auth::user()->company->name ?? Auth::user()->name }}</span>
+
+                <!-- User Info + Logout -->
+                <div class="flex items-center gap-6">
+                    <span class="font-semibold text-gray-800 text-base truncate max-w-[150px]">
+                        {{ Auth::user()->company->name ?? Auth::user()->name }}
+                    </span>
+
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <button type="submit" class="text-sm text-gray-600 hover:text-teal-600 transition">Sign
-                            Out</button>
+                        <button type="submit"
+                            class="text-sm text-gray-600 hover:text-teal-600 transition focus:outline-none">
+                            Sign Out
+                        </button>
                     </form>
                 </div>
             </header>
 
-            <!-- Main Section -->
-            <main class="flex-1 overflow-y-auto p-6 bg-gray-50">
+            <!-- Main Content -->
+            <main class="flex-1 overflow-y-auto px-6 py-6 bg-gray-50">
                 @yield('content')
             </main>
         </div>
+
     </div>
 </body>
 

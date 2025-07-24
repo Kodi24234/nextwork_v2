@@ -62,13 +62,25 @@
 
         </div>
 
-        <!-- Placeholder for recent applicants or stats -->
         <div class="mt-8 bg-white rounded-xl shadow-md p-6">
             <h3 class="text-xl font-bold text-gray-800 mb-4">Recent Applicants</h3>
-            <p class="text-gray-500 text-center py-8">
-                Your recent job applicants will appear here.
-            </p>
+
+            <ul class="divide-y divide-gray-200">
+                @foreach ($recentApplicants as $applicant)
+                    <li class="py-4">
+                        <p class="font-semibold text-gray-800">{{ $applicant->user_name }}</p>
+                        <p class="text-sm text-gray-500">
+                            Applied for: <strong>{{ $applicant->job_title }}</strong>
+                        </p>
+                        <p class="text-xs text-gray-400">
+                            Submitted {{ \Carbon\Carbon::parse($applicant->created_at)->diffForHumans() }}
+                        </p>
+                    </li>
+                @endforeach
+            </ul>
         </div>
+
+
 
     </div>
 @endsection

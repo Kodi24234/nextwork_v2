@@ -5,7 +5,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
@@ -51,6 +50,6 @@ class ProfileController extends Controller
         // 3. Update the company record with the validated data.
         $company->update($validated);
 
-        return Redirect::route('company.profile.edit')->with('status', 'company-profile-updated');
+        return back()->with('status', 'company-profile-updated');
     }
 }

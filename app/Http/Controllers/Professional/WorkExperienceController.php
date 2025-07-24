@@ -41,7 +41,7 @@ class WorkExperienceController extends Controller
             'description'  => ['nullable', 'string', 'max:5000'],
         ]);
         $request->user()->workExperiences()->create($validated);
-        return redirect()->route('profile.show')->with('success', 'Work experience added successfully.');
+        return back()->with('success', 'Work experience added successfully.');
 
     }
 

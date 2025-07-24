@@ -54,16 +54,13 @@ class JobController extends Controller
         return redirect()->route('company.jobs.index')->with('status', 'job-posted');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         //
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing
      */
     public function edit(Job $job): View
     {
@@ -92,9 +89,6 @@ class JobController extends Controller
         return redirect()->route('company.jobs.index')->with('status', 'job-updated');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Job $job): RedirectResponse
     {
         $this->authorize('delete', $job);
@@ -104,10 +98,10 @@ class JobController extends Controller
     }
     public function applicants(Job $job): View
     {
-        // Security Check: Ensure the company viewing the applicants owns the job.
+
         $this->authorize('update', $job);
 
-        // Eager load the applicant's profile for efficiency
+        //  load the applicant's profile
         $applicants = $job->applicants()->with('profile')->paginate(10);
 
         return view('company.jobs.applicants', [
@@ -123,7 +117,7 @@ class JobController extends Controller
         return view('company.applicants.show', [
             'user'             => $applicant,
             'job'              => $job,
-            // --- ADD THESE TWO LINES, PASSING NULL ---
+
             'connectionStatus' => null,
             'connection'       => null,
         ]);

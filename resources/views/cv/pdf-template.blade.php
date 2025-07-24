@@ -14,10 +14,12 @@
 
         body {
             font-family: 'DejaVu Sans', Arial, sans-serif;
-            line-height: 1.6;
+            line-height: 1.5;
             color: #333;
             background: white;
             font-size: 14px;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
 
         .cv-container {
@@ -30,8 +32,8 @@
         .cv-header {
             text-align: center;
             border-bottom: 2px solid #2c3e50;
-            padding-bottom: 24px;
-            margin-bottom: 32px;
+            padding-bottom: 20px;
+            margin-bottom: 24px;
         }
 
         .cv-name {
@@ -49,26 +51,27 @@
             font-weight: 400;
         }
 
+        /* Fixed contact section to match preview */
         .cv-contact {
             text-align: center;
             font-size: 14px;
             color: #555;
         }
 
-        .cv-contact-item {
+        .cv-contact span {
             display: inline-block;
             margin: 0 12px;
         }
 
         .cv-section {
-            margin-bottom: 32px;
+            margin-bottom: 24px;
         }
 
         .cv-section-title {
             font-size: 18px;
             font-weight: 600;
             color: #2c3e50;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             text-transform: uppercase;
             letter-spacing: 1px;
             border-bottom: 1px solid #ecf0f1;
@@ -76,30 +79,39 @@
         }
 
         .cv-item {
-            margin-bottom: 20px;
+            margin-bottom: 16px;
+            padding-left: 0;
         }
 
+        /* Fixed item header to match preview flexbox behavior */
         .cv-item-header {
-            display: table;
-            width: 100%;
+            display: block;
             margin-bottom: 4px;
+            overflow: hidden;
         }
 
         .cv-item-title {
-            display: table-cell;
             font-size: 16px;
             font-weight: 600;
             color: #2c3e50;
+            float: left;
             width: 70%;
         }
 
         .cv-item-date {
-            display: table-cell;
-            text-align: right;
             font-size: 14px;
             color: #7f8c8d;
             font-weight: 400;
+            float: right;
             width: 30%;
+            text-align: right;
+        }
+
+        /* Clear floats */
+        .cv-item-header::after {
+            content: "";
+            display: table;
+            clear: both;
         }
 
         .cv-item-company {
@@ -107,6 +119,7 @@
             color: #555;
             margin-bottom: 8px;
             font-style: italic;
+            clear: both;
         }
 
         .cv-item-description {
@@ -115,8 +128,9 @@
             line-height: 1.5;
         }
 
+        /* Fixed skills section to match preview */
         .cv-skills {
-            line-height: 2;
+            line-height: 1.8;
         }
 
         .cv-skill {
@@ -134,8 +148,10 @@
         .cv-summary {
             font-size: 14px;
             color: #555;
-            line-height: 1.6;
+            line-height: 1.5;
             text-align: justify;
+            word-wrap: break-word;
+            hyphens: auto;
         }
 
         .no-data {
@@ -156,13 +172,34 @@
             }
         }
 
-        /* Page break handling */
+        /* Page break handling - More aggressive */
         .cv-section {
             page-break-inside: avoid;
+            break-inside: avoid;
         }
 
         .cv-item {
             page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+
+        .cv-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .cv-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .cv-section-title {
+            page-break-after: avoid;
+            break-after: avoid;
+        }
+
+        @page {
+            margin: 20mm;
+            size: A4;
         }
     </style>
 </head>
@@ -174,8 +211,8 @@
             <h1 class="cv-name">{{ $user->name }}</h1>
             <p class="cv-title">{{ $user->profile->headline ?? 'Professional Title' }}</p>
             <div class="cv-contact">
-                <span class="cv-contact-item">Email: {{ $user->email }}</span>
-                <span class="cv-contact-item">Location: {{ $user->profile->location ?? 'City, Country' }}</span>
+                <span>Email: {{ $user->email }}</span>
+                <span>Location: {{ $user->profile->location ?? 'City, Country' }}</span>
             </div>
         </div>
 
