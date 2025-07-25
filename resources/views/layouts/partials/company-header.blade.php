@@ -20,7 +20,7 @@
 
                 </div>
 
-                {{-- We can add a "View All" link here later --}}
+
                 <div class="p-2 text-center border-t">
                     <a href="#" class="text-sm text-teal-600 hover:underline">View all notifications</a>
                 </div>
@@ -34,9 +34,7 @@
 
             <div x-show="dropdownOpen" @click.away="dropdownOpen = false" x-transition
                 class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-20">
-                {{-- <a href="{{ route('profile.edit') }}"
-                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Your Profile</a>
-                <div class="border-t border-gray-100"></div> --}}
+
 
                 <!-- Logout Form -->
                 <form method="POST" action="{{ route('logout') }}">

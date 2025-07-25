@@ -21,6 +21,7 @@ class DashboardController extends Controller
                 'users.id as user_id',
                 'users.name as user_name',
                 'jobs.title as job_title',
+                'job_applications.job_id as job_id',
                 'job_applications.created_at'
             )
             ->orderByDesc('job_applications.created_at')
@@ -33,4 +34,5 @@ class DashboardController extends Controller
             'recentApplicants' => $recentApplicants,
         ]);
     }
+
 }

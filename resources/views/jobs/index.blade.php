@@ -9,7 +9,7 @@
             <h1 class="text-3xl sm:text-4xl font-bold text-gray-800 ">Job Listings</h1>
             <p class="mt-2 text-base sm:text-lg text-gray-600">Explore roles from top companies in the NextWork network.</p>
         </div>
-        <!-- Filters -->
+
         <!-- Filters -->
         <form method="GET" action="{{ route('jobs.index') }}" class="bg-white rounded-xl shadow p-6 mb-10">
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

@@ -61,7 +61,7 @@
                 {{-- Like & Comment Section --}}
                 <div x-data="likeComponent({{ $post->isLikedByAuthUser() ? 'true' : 'false' }}, {{ $post->likes_count }}, {{ $post->id }})">
 
-                    {{-- Reaction Count (Top) --}}
+                    {{-- Reaction Count --}}
                     <div class="flex justify-between items-center text-sm text-gray-500 px-1 pt-3">
                         <div>
                             <span x-text="likeCount + ' like' + (likeCount !== 1 ? 's' : '')"></span>

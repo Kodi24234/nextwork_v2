@@ -67,18 +67,28 @@
 
             <ul class="divide-y divide-gray-200">
                 @foreach ($recentApplicants as $applicant)
-                    <li class="py-4">
-                        <p class="font-semibold text-gray-800">{{ $applicant->user_name }}</p>
-                        <p class="text-sm text-gray-500">
-                            Applied for: <strong>{{ $applicant->job_title }}</strong>
-                        </p>
-                        <p class="text-xs text-gray-400">
-                            Submitted {{ \Carbon\Carbon::parse($applicant->created_at)->diffForHumans() }}
-                        </p>
+                    <li class="py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                        <div>
+                            <p class="font-semibold text-gray-800">{{ $applicant->user_name }}</p>
+                            <p class="text-sm text-gray-500">
+                                Applied for: <strong>{{ $applicant->job_title }}</strong>
+                            </p>
+                            <p class="text-xs text-gray-400">
+                                Submitted {{ \Carbon\Carbon::parse($applicant->created_at)->diffForHumans() }}
+                            </p>
+                        </div>
+
+                        <a href="{{ route('company.jobs.applicants.show', ['job' => $applicant->job_id, 'applicant' => $applicant->user_id]) }}"
+                            target="_blank"
+                            class="inline-flex items-center px-4 py-2 bg-teal-50 text-teal-700 border border-teal-200 rounded-lg hover:bg-teal-100 transition-colors text-sm font-medium">
+                            <i class="ti ti-eye text-sm mr-2"></i>
+                            View Profile
+                        </a>
                     </li>
                 @endforeach
             </ul>
         </div>
+
 
 
 

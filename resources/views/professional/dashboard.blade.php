@@ -369,12 +369,12 @@
                 background-clip: text;
             }
 
-            /* Hover effects */
+
             .card-hover:hover {
                 transform: translateY(-2px);
             }
 
-            /* Smooth transitions */
+
             * {
                 transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
             }

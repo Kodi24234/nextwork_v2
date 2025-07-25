@@ -1,11 +1,10 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminAccountController as AdminAccountController;
-// Public Controllers
+use App\Http\Controllers\Admin\CompanyController as AdminCompanyController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\JobController as AdminJobController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
-// Professional Controllers
 use App\Http\Controllers\Auth\CompanyRegistrationController;
 use App\Http\Controllers\Auth\RedirectController;
 use App\Http\Controllers\Company\DashboardController as CompanyDashboardController;
@@ -16,13 +15,9 @@ use App\Http\Controllers\Professional\ChatController;
 use App\Http\Controllers\Professional\ConnectionController;
 use App\Http\Controllers\Professional\CvController;
 use App\Http\Controllers\Professional\DashboardController as ProfessionalDashboardController;
-
-// Company Controllers
 use App\Http\Controllers\Professional\EducationController;
 use App\Http\Controllers\Professional\FeedController;
 use App\Http\Controllers\Professional\JobApplicationController;
-
-// Admin Controllers
 use App\Http\Controllers\Professional\MessageController;
 use App\Http\Controllers\Professional\PostCommentController;
 use App\Http\Controllers\Professional\PostController;
@@ -113,8 +108,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/chat', [ChatController::class, 'index'])->name('chat.index');
     Route::get('/chats/{chat}/messages', [MessageController::class, 'index']);
     Route::post('/chats/{chat}/messages', [MessageController::class, 'store']);
-    // New route for sending messages to users (creates chat if needed)
-    // New route for sending messages to users (creates chat if needed)
+
     Route::post('/messages/send-to-user', [MessageController::class, 'sendToUser'])->name('messages.sendToUser');
 
 });
@@ -127,6 +121,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
     Route::get('/jobs', [AdminJobController::class, 'index'])->name('jobs.index');
     Route::get('/users', [AdminUserController::class, 'index'])->name('users.index');
+    Route::get('/companies', [AdminCompanyController::class, 'index'])->name('companies.index');
 
     // Admin account management
     Route::get('/admins', [AdminAccountController::class, 'index'])->name('admins.index');

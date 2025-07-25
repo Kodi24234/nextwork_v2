@@ -1,11 +1,5 @@
 <div class="max-w-5xl mx-auto mb-20">
-    {{-- <div class="mb-6">
-        <a href="{{ route('company.jobs.applicants', $job) }}"
-            class="inline-flex items-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg transition-colors">
-            <i class="ti ti-arrow-left text-lg"></i>
-            <span>Back</span>
-        </a>
-    </div> --}}
+
     <!-- Profile Header Card -->
     <div class="bg-white rounded-xl shadow-md p-6 md:p-8 mb-8">
         <div class="flex flex-col md:flex-row items-center gap-6">
@@ -22,9 +16,7 @@
                 <p class="text-lg text-gray-600 mt-1">{{ $user->profile->headline ?? 'Nextwork Professional' }}</p>
                 <p class="text-sm text-gray-500 mt-2">{{ $user->profile->location ?? 'Location not specified' }}</p>
 
-                <!-- In resources/views/professional/show.blade.php -->
 
-                {{-- This is the div that contains the action button --}}
                 <div class="mt-4">
 
                     {{-- First, check if the logged-in user is a professional AND is not viewing their own profile --}}
@@ -96,9 +88,6 @@
                                     </form>
                                 </div>
                             @break
-
-                            {{-- We don't need the other cases ('declined', 'blocked', 'default') because the outer @if handles them.
-                                 If the status is anything else, or if the viewer is a company, nothing will be rendered. --}}
                         @endswitch
                     @endif
                 </div>

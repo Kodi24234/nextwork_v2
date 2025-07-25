@@ -11,8 +11,8 @@ class Post extends Model
 {
     //
     protected $fillable = [
-        'user_id', // Who created the post?
-        'body',    // The main content of the post
+        'user_id', // post owner id
+        'body',    //  content of the post
     ];
     public function user(): BelongsTo
     {

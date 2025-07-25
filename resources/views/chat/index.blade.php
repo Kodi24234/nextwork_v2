@@ -219,12 +219,12 @@
                 background: #a0aec0;
             }
 
-            /* Auto-resize textarea */
+
             #message-input {
                 field-sizing: content;
             }
 
-            /* Message bubble animations */
+
             .message-bubble {
                 animation: slideIn 0.3s ease-out;
             }
@@ -241,7 +241,7 @@
                 }
             }
 
-            /* Mobile optimization */
+
             @media (max-width: 768px) {
                 #messages-area {
                     height: calc(100vh - 200px);

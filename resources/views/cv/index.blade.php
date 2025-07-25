@@ -14,7 +14,7 @@
                 <p class="text-gray-800">{{ Auth::user()->name }}</p>
             </div>
 
-            {{-- Headline (inline edit) --}}
+            {{-- Headline  --}}
             <div x-data="{ editing: false, value: '{{ Auth::user()->profile->headline }}' }" class="mb-6">
                 <h3 class="text-lg font-semibold text-gray-700">Headline:</h3>
                 <template x-if="!editing">
@@ -40,7 +40,7 @@
                 </template>
             </div>
 
-            {{-- Summary (inline edit) --}}
+            {{-- Summary  --}}
             <div x-data="{ editing: false, value: @js(Auth::user()->profile->summary) }" class="mb-6">
                 <h3 class="text-lg font-semibold text-gray-700">Summary:</h3>
                 <template x-if="!editing">

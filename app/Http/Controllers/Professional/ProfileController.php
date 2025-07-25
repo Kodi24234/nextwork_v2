@@ -79,7 +79,7 @@ class ProfileController extends Controller
         }
 
         // Save all profile changes
-        // No need to call save() after update(), as update() already persists changes
+        //
 
         return Redirect::route('profile.show')->with('status', 'profile-updated');
     }

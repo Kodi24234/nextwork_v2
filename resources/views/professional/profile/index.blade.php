@@ -34,11 +34,7 @@
         <div x-show="tab === 'personal'" class="bg-white rounded-xl shadow-md overflow-auto p-6 md:p-8">
             <div class="">
                 <div class="flex justify-between items-center mb-6">
-                    {{--     --}}
-                    {{-- <a href="{{ route('profile.edit') }}" class="bg-teal-600 text-white px-4 py-2 text-sm rounded-md hover:bg-teal-700">
-                        <i class="fa-solid fa-user-pen"></i>
-                        Edit Profile
-                    </a> --}}
+
                 </div>
 
                 <div
@@ -88,51 +84,41 @@
             </div>
         </div>
 
-        <!-- Placeholder tabs -->
-        <!-- Tab 2: Work Experience (Now with real data!) -->
+
+        <!-- Tab 2: Work Experience  -->
         <div x-show="tab === 'experience'" class="bg-white rounded-xl shadow-md overflow-hidden p-6 md:p-8">
 
             <!-- Header -->
             <div class="flex justify-between items-center mb-6">
                 <h3 class="text-xl font-bold text-gray-800">Work Experience</h3>
-                {{-- <button
-                        class="bg-teal-600 text-white font-semibold px-4 py-2 rounded-md hover:bg-teal-700 transition-colors text-sm">
-                        <i class="ti ti-plus -ml-1 mr-1"></i>
-                        Add Experience
-                    </button> --}}
-            </div>
 
-            <!-- This is the container for the list -->
+            </div>
             <div class="space-y-4">
 
                 {{-- Loop through the user's work experiences --}}
                 @forelse ($user->workExperiences as $experience)
                     <div class="border-t border-gray-200 py-4 flex justify-between items-start">
                         <div>
-                            {{-- Display data from the database --}}
+
                             <h4 class="font-bold text-gray-900">{{ $experience->job_title }}</h4>
                             <p class="text-sm text-gray-700">{{ $experience->company_name }}</p>
                             <p class="text-xs text-gray-500">
-                                {{-- We use Carbon to format the dates nicely --}}
+
                                 {{ \Carbon\Carbon::parse($experience->start_date)->format('M Y') }} -
                                 {{ $experience->end_date ? \Carbon\Carbon::parse($experience->end_date)->format('M Y') : 'Present' }}
                             </p>
 
-                            {{-- Only show the description if it exists --}}
+
                             @if ($experience->description)
                                 <p class="text-sm text-gray-600 mt-2 whitespace-pre-wrap">{{ $experience->description }}
                                 </p>
                             @endif
                         </div>
 
-                        <!-- Action Buttons (These are still placeholders for now) -->
-                        {{-- <div class="flex space-x-2 flex-shrink-0 ml-4">
-                                <button class="text-gray-400 hover:text-teal-600" title="Edit"><i class="ti ti-pencil"></i></button>
-                                <button class="text-gray-400 hover:text-red-600" title="Delete"><i class="ti ti-trash"></i></button>
-                            </div> --}}
+
                     </div>
                 @empty
-                    {{-- If there are no experiences, show this message --}}
+                    {{-- no experiences,  this message show --}}
                     <div class="border-t border-gray-200 py-4 text-center text-gray-500">
                         You haven't added any work experience yet. Click "Add Experience" to get started.
                     </div>
@@ -140,41 +126,37 @@
 
             </div>
         </div>
-        <!-- Tab 3: Education (UI Skeleton) -->
+        <!-- Tab 3: Education  -->
         <div x-show="tab === 'education'" class="bg-white rounded-xl shadow-md overflow-hidden p-6 md:p-8">
             <!-- Header -->
             <div class="flex justify-between items-center mb-6">
                 <h3 class="text-xl font-bold text-gray-800">Education Journey</h3>
             </div>
             <div class="space-y-4">
-                {{-- Loop through the user's education experiences --}}
+
                 @forelse ($user->education as $education)
                     <div class="border-t border-gray-200 py-4 flex justify-between items-start">
                         <div>
-                            {{-- Display data from the database --}}
+
                             <h4 class="font-bold text-gray-900">{{ $education->degree }}</h4>
                             <p class="text-sm text-gray-700">{{ $education->institution }}</p>
                             <p class="text-xs text-gray-500">
-                                {{-- We use Carbon to format the dates nicely --}}
+
                                 {{ \Carbon\Carbon::parse($education->start_date)->format('M Y') }} -
                                 {{ $education->end_date ? \Carbon\Carbon::parse($education->end_date)->format('M Y') : 'Present' }}
                             </p>
 
-                            {{-- Only show the description if it exists --}}
+
                             @if ($education->description)
                                 <p class="text-sm text-gray-600 mt-2 whitespace-pre-wrap">{{ $education->description }}
                                 </p>
                             @endif
                         </div>
 
-                        <!-- Action Buttons (These are still placeholders for now) -->
-                        {{-- <div class="flex space-x-2 flex-shrink-0 ml-4">
-                                <button class="text-gray-400 hover:text-teal-600" title="Edit"><i class="ti ti-pencil"></i></button>
-                                <button class="text-gray-400 hover:text-red-600" title="Delete"><i class="ti ti-trash"></i></button>
-                            </div> --}}
+
                     </div>
                 @empty
-                    {{-- If there are no experiences, show this message --}}
+
                     <div class="border-t border-gray-200 py-4 text-center text-gray-500">
                         You haven't added any work experience yet. Click "Add Experience" to get started.
                     </div>
@@ -182,8 +164,7 @@
 
             </div>
         </div>
-        <!-- Tab 4: Skills (UI Skeleton) -->
-        <!-- Tab 4: Skills (Now with real data!) -->
+        <!-- Tab 4: Skills -->
         <div x-show="tab === 'skills'" class="bg-white rounded-xl shadow-md overflow-hidden p-6 md:p-8">
 
             <div class="max-w-xl">
@@ -196,11 +177,11 @@
 
             <!-- List of user's current skills as tags -->
             <div class="mt-6">
-                {{-- Check if the user has any skills attached to their profile --}}
+
                 @if ($user->skills->isNotEmpty())
                     <h4 class="text-md font-medium text-gray-700 mb-3">Your Skills</h4>
                     <div class="flex flex-wrap gap-2">
-                        {{-- Loop through each skill --}}
+
                         @foreach ($user->skills as $skill)
                             <div
                                 class="bg-teal-100 text-teal-800 text-sm font-medium px-3 py-1 rounded-full shadow-sm hover:bg-teal-200 transition">
@@ -209,7 +190,6 @@
                         @endforeach
                     </div>
                 @else
-                    {{-- This message shows if the user has no skills --}}
                     <p class="text-sm text-gray-500">You haven't added any skills yet.</p>
                 @endif
             </div>

@@ -60,7 +60,7 @@ class ConnectionController extends Controller
      */
     public function update(Request $request, Connection $connection): RedirectResponse
     {
-        // Security Check: Ensure the person accepting is the one who received the request
+        // Ensure the person accepting is the one who received the request
         if ($connection->addressee_id !== Auth::id()) {
             abort(403, 'Unauthorized action.');
         }

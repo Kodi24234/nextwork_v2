@@ -107,7 +107,7 @@ class User extends Authenticatable
             ->get()
             ->pluck('requester'); // Pluck just the user object
 
-        // Merge the two collections together
+        // Merge  two collections together
         return $friendsFromSentRequests->merge($friendsFromReceivedRequests);
     }
     public function getConnectionStatusWith(User $otherUser): ?string
@@ -126,9 +126,9 @@ class User extends Authenticatable
             ->first();
         if ($receivedRequest) {
             // From the other user's perspective, our status is 'pending' if we haven't accepted
-            // Let's return a special status for the UI to handle
+
             if ($receivedRequest->status === 'pending') {
-                return 'pending_approval'; // A custom status for our UI
+                return 'pending_approval';
             }
             return $receivedRequest->status;
         }

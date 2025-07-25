@@ -18,7 +18,7 @@ class PostController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'body' => ['required', 'string', 'max:5000'], // Max length for a post
+            'body' => ['required', 'string', 'max:5000'],
         ]);
         $request->user()->posts()->create($validated);
 
@@ -55,7 +55,7 @@ class PostController extends Controller
     // In PostController.php
     public function edit(Post $post): View
     {
-        $this->authorize('update', $post); // Security check
+        $this->authorize('update', $post);
         return view('posts.edit', ['post' => $post]);
     }
 

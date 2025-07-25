@@ -52,7 +52,7 @@ class CvController extends Controller
                 'isRemoteEnabled'       => false,
                 'defaultFont'           => 'DejaVu Sans',
                 'dpi'                   => 96,
-                'fontHeightRatio'       => 1.0, // Reduces line height spacing
+                'fontHeightRatio'       => 1.0,
                 'isPhpEnabled'          => true,
                 'debugKeepTemp'         => false,
                 'debugCss'              => false,

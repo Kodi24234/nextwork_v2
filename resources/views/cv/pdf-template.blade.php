@@ -83,7 +83,7 @@
             padding-left: 0;
         }
 
-        /* Fixed item header to match preview flexbox behavior */
+
         .cv-item-header {
             display: block;
             margin-bottom: 4px;
@@ -128,7 +128,7 @@
             line-height: 1.5;
         }
 
-        /* Fixed skills section to match preview */
+
         .cv-skills {
             line-height: 1.8;
         }
@@ -172,7 +172,7 @@
             }
         }
 
-        /* Page break handling - More aggressive */
+
         .cv-section {
             page-break-inside: avoid;
             break-inside: avoid;

@@ -28,7 +28,7 @@ class ProfileController extends Controller
     {
         $company = Auth::user()->company;
 
-        // 1. Validate the form data.
+        //  Validate the form data.
         $validated = $request->validate([
             'name'        => ['required', 'string', 'max:255'],
             'website_url' => ['nullable', 'url', 'max:255'],
@@ -37,7 +37,7 @@ class ProfileController extends Controller
             'logo'        => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048'], // 2MB Max
         ]);
 
-        // 2. Handle the logo upload if a new one is provided.
+        //  Handle the logo upload if a new one is provided.
         if ($request->hasFile('logo')) {
             // Delete the old logo if it exists
             if ($company->logo_path) {
@@ -47,7 +47,7 @@ class ProfileController extends Controller
             $validated['logo_path'] = $request->file('logo')->store('company-logos', 'public');
         }
 
-        // 3. Update the company record with the validated data.
+        // Update the company record with the validated data.
         $company->update($validated);
 
         return back()->with('status', 'company-profile-updated');

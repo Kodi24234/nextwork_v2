@@ -9,8 +9,6 @@ use Illuminate\View\View;
 
 class PublicProfileController extends Controller
 {
-    //
-    // In app/Http/Controllers/Professional/PublicProfileController.php
 
     public function index(): View
     {

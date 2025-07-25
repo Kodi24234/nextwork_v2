@@ -10,7 +10,7 @@ class UserController extends Controller
     //
     public function index()
     {
-        $query = User::query();
+        $query = User::with('profile');
 
         if (request('role')) {
             $query->role(request('role'));
@@ -24,6 +24,8 @@ class UserController extends Controller
         }
 
         $users = $query->latest()->paginate(10)->appends(request()->query());
+
+        // dd($users);
 
         return view('admin.users.index', compact('users'));
     }

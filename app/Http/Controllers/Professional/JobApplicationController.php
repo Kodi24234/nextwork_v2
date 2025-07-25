@@ -19,11 +19,11 @@ class JobApplicationController extends Controller
             return Redirect::back()->with('error', 'You cannot apply to your own company\'s job.');
         }
 
-        // The `syncWithoutDetaching` method is perfect here. It creates the link
+        // The `syncWithoutDetaching` method creates the link
         // in the pivot table but won't create a duplicate if the user somehow applies twice.
         $job->applicants()->syncWithoutDetaching($user->id);
 
-        // We can add a notification to the company here later.
+        //  can add a notification to the company here later.
 
         return Redirect::route('jobs.show', $job)->with('status', 'application-submitted');
     }

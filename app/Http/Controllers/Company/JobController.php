@@ -51,7 +51,7 @@ class JobController extends Controller
 
         Auth::user()->company->jobs()->create($validated);
 
-        return redirect()->route('company.jobs.index')->with('status', 'job-posted');
+        return redirect()->route('company.jobs.index')->with('status', 'New job created successfully');
     }
 
     public function show(string $id)
@@ -86,7 +86,7 @@ class JobController extends Controller
 
         $job->update($validated);
 
-        return redirect()->route('company.jobs.index')->with('status', 'job-updated');
+        return redirect()->route('company.jobs.index')->with('status', 'Job updated successfully');
     }
 
     public function destroy(Job $job): RedirectResponse
@@ -96,19 +96,41 @@ class JobController extends Controller
 
         return redirect()->route('company.jobs.index')->with('status', 'job-deleted');
     }
-    public function applicants(Job $job): View
+    public function applicants(Request $request, Job $job): View
     {
-
         $this->authorize('update', $job);
 
-        //  load the applicant's profile
-        $applicants = $job->applicants()->with('profile')->paginate(10);
+        $query = $job->applicants()->with('profile');
+
+        // 🔍 Filter: Search by name or email
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', '%' . $search . '%')
+                    ->orWhere('email', 'like', '%' . $search . '%');
+            });
+        }
+
+        //  Filter: Sort by name or created_at
+        if ($request->filled('sort')) {
+            $sort = $request->input('sort');
+            if ($sort === 'name') {
+                $query->orderBy('name');
+            } else {
+                $query->orderBy('job_applications.created_at', 'desc');
+            }
+        } else {
+            $query->orderBy('job_applications.created_at', 'desc'); // default sort
+        }
+
+        $applicants = $query->paginate(10)->appends($request->query());
 
         return view('company.jobs.applicants', [
             'job'        => $job,
             'applicants' => $applicants,
         ]);
     }
+
     public function showApplicant(Job $job, User $applicant): View
     {
         $this->authorize('update', $job);

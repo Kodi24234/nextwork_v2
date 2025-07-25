@@ -323,7 +323,7 @@
             </div>
         </div>
 
-        <!-- Tab 3: Education (Full CRUD Functionality) -->
+        <!-- Tab 3: Education  -->
         <div x-show="tab === 'education'" x-data="{
             isAddEducationModalOpen: false,
             isEditEducationModalOpen: false,

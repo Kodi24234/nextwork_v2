@@ -1,81 +1,105 @@
 <x-guest-layout>
-    <div class="flex min-h-screen">
-        <!-- Left Side -->
-        <div class="hidden md:flex w-1/2 flex-col justify-center items-center bg-teal-50 p-10">
-            <img src="{{ asset('images/login-illustration.svg') }}" alt="Login Illustration" class="w-64 h-auto mb-6">
-            <h2 class="text-3xl font-bold text-gray-800 mb-2">Welcome Back!</h2>
-            <p class="text-gray-600 text-center max-w-sm">
-                Log in to connect with your network and discover new opportunities.
-            </p>
+    <div
+        class="min-h-screen bg-gradient-to-br from-cyan-800 to-teal-400 relative overflow-hidden flex items-center justify-center px-4">
+        <!--  grid  overlay -->
+        <div class="absolute inset-0 opacity-20 pointer-events-none">
+            <svg class="w-full h-full" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
+                        <path d="M 10 0 L 0 0 0 10" fill="none" stroke="white" stroke-width="1" />
+                    </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#grid)" />
+            </svg>
         </div>
 
-        <!-- Right Side -->
-        <div class="w-full md:w-1/2 flex items-center justify-center bg-white px-6 py-10">
-            <div class="w-full max-w-md space-y-6">
-                <!-- Logo -->
-                <div class="text-center">
-                    <a href="/" class="flex justify-center items-center space-x-2 mb-6">
-                        <x-application-logo class="w-10 h-10 fill-current text-teal-600" />
-                        <span class="text-2xl font-bold text-gray-800">Nextwork</span>
-                    </a>
-                    <h2 class="text-2xl font-bold text-gray-800">Sign in to your account</h2>
-                    <p class="text-sm text-gray-600 mt-1">Enter your credentials below</p>
+        <!--  login card -->
+        <div
+            class="relative z-10 w-full max-w-md bg-white/10 backdrop-blur-md rounded-2xl shadow-xl p-8 sm:p-10 text-white">
+            <!-- Logo -->
+            <div class="mb-6 text-center">
+                <div class="w-10 h-10  rounded-xl mx-auto mb-3 flex items-center justify-center">
+                    <x-application-logo class="w-8 h-8 text-white" />
+                </div>
+                <h2 class="text-2xl font-bold">Welcome Back</h2>
+                <p class="text-sm text-teal-100 mt-1">Please sign in to your account</p>
+            </div>
+
+            <!-- Login Form -->
+            <form method="POST" action="{{ route('login') }}" x-data="{ showPassword: false }" class="space-y-6">
+                @csrf
+
+                <!-- Email -->
+                <div>
+                    <label for="email" class="text-sm font-semibold mb-2 block">Email Address</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="ti ti-email text-white/70 text-sm"></i>
+                        </div>
+                        <input id="email" name="email" type="email" autofocus
+                            class="block w-full pl-10 pr-4 py-3 rounded-xl bg-white/20 text-white placeholder-white/60 border border-white/30 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent"
+                            placeholder="Enter your email" value="{{ old('email') }}" />
+                    </div>
+                    @error('email')
+                        <div class="mt-2 text-xs text-red-100  rounded px-2 py-1 inline-block">
+                            <i class="ti ti-pencil text-red/70 text-sm me-2"></i>{{ $message }}
+                        </div>
+                    @enderror
                 </div>
 
-                <!-- Status Message -->
-                <x-auth-session-status class="mb-4" :status="session('status')" />
-
-                <!-- Form -->
-                <form method="POST" action="{{ route('login') }}" class="space-y-4">
-                    @csrf
-
-                    <!-- Email -->
-                    <div>
-                        <x-input-label for="email" :value="__('Email')" />
-                        <x-text-input id="email" name="email" type="email" required autofocus
-                            class="block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:ring-teal-500 focus:border-teal-500"
-                            :value="old('email')" />
-                        <x-input-error :messages="$errors->get('email')" class="mt-1" />
+                <!-- Password -->
+                <div>
+                    <label for="password" class="text-sm font-semibold mb-2 block">Password</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="ti ti-lock text-white/70 text-sm"></i>
+                        </div>
+                        <input :type="showPassword ? 'text' : 'password'" id="password" name="password"
+                            class="block w-full pl-10 pr-12 py-3 rounded-xl bg-white/20 text-white placeholder-white/60 border border-white/30 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent"
+                            placeholder="Enter your password" />
+                        <button type="button" @click="showPassword = !showPassword"
+                            class="absolute inset-y-0 right-0 pr-4 flex items-center">
+                            <i
+                                :class="showPassword
+                                    ?
+                                    'ti ti-eye text-white/70 text-sm hover:text-white' :
+                                    'ti ti-eye text-white/70 text-sm hover:text-white'"></i>
+                        </button>
                     </div>
+                    @error('password')
+                        <div class="mt-2 text-xs text-red-100  rounded px-2 py-1 inline-block">
+                            <i class="ti ti-pencil text-red/70 text-sm me-2"></i>{{ $message }}
+                        </div>
+                    @enderror
+                </div>
 
-                    <!-- Password -->
-                    <div>
-                        <x-input-label for="password" :value="__('Password')" />
-                        <x-text-input id="password" name="password" type="password" required
-                            class="block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:ring-teal-500 focus:border-teal-500" />
-                        <x-input-error :messages="$errors->get('password')" class="mt-1" />
-                    </div>
+                <!-- Options -->
+                <div class="flex items-center justify-between text-sm">
+                    <label class="inline-flex items-center">
+                        <input type="checkbox" name="remember"
+                            class="rounded border-white/40 bg-white/10 text-white focus:ring-white w-4 h-4" />
+                        <span class="ml-2 text-white/80">Remember me</span>
+                    </label>
+                    @if (Route::has('password.request'))
+                        <a href="{{ route('password.request') }}"
+                            class="text-teal-100 hover:text-white transition">Forgot password?</a>
+                    @endif
+                </div>
 
-                    <!-- Remember Me & Forgot -->
-                    <div class="flex items-center justify-between text-sm">
-                        <label class="inline-flex items-center">
-                            <input type="checkbox" name="remember"
-                                class="rounded border-gray-300 text-teal-600 shadow-sm focus:ring-teal-500">
-                            <span class="ml-2 text-gray-700">Remember me</span>
-                        </label>
+                <!-- Submit -->
+                <button type="submit"
+                    class="w-full bg-white/20 hover:bg-white/30 text-white font-semibold py-3 rounded-xl transition-all duration-200 shadow-sm hover:shadow-lg backdrop-blur-sm">
+                    Sign In
+                </button>
 
-                        @if (Route::has('password.request'))
-                            <a href="{{ route('password.request') }}" class="text-teal-600 hover:underline">
-                                Forgot your password?
-                            </a>
-                        @endif
-                    </div>
-
-                    <!-- Submit Button -->
-                    <div>
-                        <x-primary-button class="w-full justify-center bg-teal-600 hover:bg-teal-500">
-                            Log in
-                        </x-primary-button>
-                    </div>
-
-                    <!-- Sign up -->
-                    <p class="text-center text-sm text-gray-600">
-                        Don’t have an account?
-                        <a href="{{ route('register') }}" class="text-teal-600 font-semibold hover:underline">Sign
-                            up</a>
-                    </p>
-                </form>
-            </div>
+                <!-- Register -->
+                <div class="text-center text-sm text-white/70 mt-4">
+                    Don't have an account?
+                    <a href="{{ route('register') }}" class="text-white font-medium hover:underline">
+                        Create account
+                    </a>
+                </div>
+            </form>
         </div>
     </div>
 </x-guest-layout>

@@ -270,7 +270,7 @@
                                 </div>
                             </template>
 
-                            <!-- Server-side Comments -->
+                            <!-- other Comments -->
                             @foreach ($post->comments as $comment)
                                 <div class="flex items-start gap-3">
                                     <img class="h-8 w-8 rounded-full object-cover ring-1 ring-gray-200"

@@ -134,7 +134,7 @@
     </div>
 
     <div class="relative min-h-screen z-10">
-        <!-- Enhanced Header/Navigation -->
+        <!--  Header -->
         <header class="fixed inset-x-0 top-0 z-50 glass-effect backdrop-blur-md">
             <nav class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8"
                 aria-label="Global">
@@ -170,7 +170,7 @@
             </nav>
         </header>
 
-        <!-- Enhanced Hero Section -->
+        <!--  Hero Section -->
         <main class="relative px-6 pt-14 lg:px-8">
             <div class="mx-auto max-w-4xl py-32 sm:py-48 lg:py-56">
                 <div class="text-center">
@@ -226,7 +226,7 @@
             </div>
         </main>
 
-        <!-- Enhanced Features Section -->
+        <!--  Features Section -->
         <section id="features" class="py-24 bg-white relative">
             <div class="mx-auto max-w-7xl px-6 lg:px-8">
                 <div class="mx-auto max-w-3xl text-center" data-aos="fade-up">
@@ -342,7 +342,7 @@
             </div>
         </section>
 
-        <!-- Enhanced Stats Section -->
+        <!--  Stats Section -->
         <section id="stats" class="py-24 bg-gradient-to-br from-gray-50 to-brand-50 relative">
             <div class="absolute inset-0 bg-grid-pattern opacity-5"></div>
             <div class="max-w-6xl mx-auto px-6 text-center relative">
@@ -401,7 +401,7 @@
             </div>
         </section>
 
-        <!-- Enhanced How it Works Section -->
+        <!-- How it Works Section -->
         <section id="how-it-works" class="py-24 bg-white relative">
             <div class="mx-auto max-w-7xl px-6">
                 <div class="text-center mb-20" data-aos="fade-up">
@@ -467,9 +467,9 @@
             </div>
         </section>
 
-        <!-- Enhanced Final CTA Section -->
+        <!--  Final CTA Section -->
         <section class="relative bg-gradient-to-br from-brand-600 via-blue-600 to-purple-700 overflow-hidden">
-            <!-- Background Pattern -->
+            <!-- Background  -->
             <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
             <div class="absolute top-0 left-0 w-full h-full">
                 <div class="absolute top-20 left-20 w-32 h-32 bg-white rounded-full opacity-10 animate-pulse"></div>
@@ -505,7 +505,7 @@
                             Create Your Account
                         </span>
                         <div
-                            class="absolute inset-0 bg-gradient-to-r from-yellow-200 to-yellow-300 opacity-0 group-hover:opacity-100 transition-opacity">
+                            class="absolute inset-0 bg-gradient-to-r from-teal-200 to-cyan-300 opacity-0 group-hover:opacity-100 transition-opacity">
                         </div>
                     </a>
 
@@ -520,7 +520,7 @@
         </section>
 
         <!-- Footer -->
-        <footer class="bg-white border-t border-gray-200 py-8 mt-20">
+        <footer class="bg-white border-t border-gray-200 py-8">
             <div
                 class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center text-center md:text-left">
                 <p class="text-gray-500 text-sm">&copy; 2025 Nextwork. All rights reserved.</p>
@@ -538,7 +538,7 @@
         AOS.init();
     </script>
 
-    <!-- Typed.js for Hero Text Animation -->
+    <!-- Typed.js  Hero Text Animation -->
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
     <script>
         new Typed('#typed-strings', {

@@ -50,12 +50,12 @@ class MessageController extends Controller
             // Broadcasting removed (not needed for non-realtime)
             return response()->json($message->load('sender'));
         } catch (\Exception $e) {
-            Log::error('❌ Message save failed: ' . $e->getMessage());
+            Log::error(' Message save failed: ' . $e->getMessage());
             return response()->json(['error' => 'Message save failed'], 500);
         }
     }
 
-    // NEW METHOD: Send message to a user (creates chat if needed)
+    // Send message to a user (creates chat if needed)
     public function sendToUser(Request $request)
     {
         $request->validate([
@@ -105,7 +105,7 @@ class MessageController extends Controller
                 'chat_id' => $chat->id,
             ]);
         } catch (\Exception $e) {
-            Log::error('❌ Send to user failed: ' . $e->getMessage());
+            Log::error(' Send to user failed: ' . $e->getMessage());
             return response()->json(['error' => 'Failed to send message'], 500);
         }
     }
